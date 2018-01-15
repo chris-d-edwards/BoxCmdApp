@@ -4,51 +4,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace BoxInterviewCmdApp.Collections
+namespace BoxInterviewCmdApp.Types
 {
-    public partial class StreamUrl
+    public class StreamEntry
     {
-        [JsonProperty("chunk_size")]
-        public long ChunkSize { get; set; }
-
-        [JsonProperty("entries")]
-        public Entry[] Entries { get; set; }
+        public string type { get; set; }
+        public string url { get; set; }
+        public string ttl { get; set; }
+        public string max_retries { get; set; }
+        public int retry_timeout { get; set; }
     }
 
-    public partial class Entry
+    public class StreamUrl
     {
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("url")]
-        public string Url { get; set; }
-
-        [JsonProperty("ttl")]
-        public string Ttl { get; set; }
-
-        [JsonProperty("max_retries")]
-        public string MaxRetries { get; set; }
-
-        [JsonProperty("retry_timeout")]
-        public long RetryTimeout { get; set; }
-    }
-
-    public partial class StreamUrl
-    {
-        public static StreamUrl FromJson(string json) => JsonConvert.DeserializeObject<StreamUrl>(json, Converter.Settings);
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this StreamUrl self) => JsonConvert.SerializeObject(self, Converter.Settings);
-    }
-
-    public class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-        };
+        public int chunk_size { get; set; }
+        public List<StreamEntry> entries { get; set; }
     }
 }

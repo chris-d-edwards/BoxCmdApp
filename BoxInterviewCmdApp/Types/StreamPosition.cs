@@ -3,37 +3,13 @@ using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace BoxInterviewCmdApp
+namespace BoxInterviewCmdApp.Types
 {
-    public partial class StreamPosition
+    public class StreamPosition
     {
-        [JsonProperty("chunk_size")]
-        public long ChunkSize { get; set; }
-
-        [JsonProperty("next_stream_position")]
-        public long NextStreamPosition { get; set; }
-
-        [JsonProperty("entries")]
-        public object[] Entries { get; set; }
-    }
-
-    public partial class StreamPosition
-    {
-        public static StreamPosition FromJson(string json) => JsonConvert.DeserializeObject<StreamPosition>(json, Converter.Settings);
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this StreamPosition self) => JsonConvert.SerializeObject(self, Converter.Settings);
-    }
-
-    public class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-        };
+        public int chunk_size { get; set; }
+        public long next_stream_position { get; set; }
+        public List<object> entries { get; set; }
     }
 
 
